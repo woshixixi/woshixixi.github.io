@@ -18,33 +18,34 @@ then 的两个参数分别为 resolve 和 reject 的返回的结果
 ```
 const promise1 = new Promise((resolve, reject) => {
   console.log("new paromise1")
-  resolve("sucess")
+  // resolve("sucess")
+  reject("failed")
 })
 
 promise1
-  .then((ares, arej) => {
-    console.log("promise-then-success", ares, arej)
-    return "promise-2"
-  })
-  .then((bres, brej) => {
-    console.log("promise2-then-then", bres, brej)
+  .then(
+    onresolve => {
+      console.log("promise-then-success", onresolve)
+      return "promise-2-resolve"
+    },
+    onreject => {
+      console.log("promise-then-failed", onreject)
+      return "promise-2-reject"
+    }
+  )
+  .then(thenResolve => {
+    console.log("promise2-then-then", thenResolve)
   })
   .catch(e => console.log("catch..", e))
 
 /** 输出
  * new paromise1
- * promise-then-success sucess undefined
- * promise2-then-then promise-2 undifined
+ * promise-then-failed failed
+ * promise2-then-then promise-2-reject
  */
 ```
 
 ## 实现
-
-### 解析
-
-    1. promise 有三个状态
-    2. promise then 后返回 promise
-    3. promise
 
 ### 构造函数
 
@@ -87,8 +88,13 @@ const p = new Prom((res, rej) => {
 
 ### then()
 
-构造函数构造出来的实例有.then 方法，因此使用 prototype 来构建
+1. 构造函数构造出来的实例有.then 方法，因此使用 prototype 来构建
 
 ```
 Prom.prototype.then = (resolve, reject) => {}
 ```
+
+2. then 方法返回一个 Promise
+3. then 方法有两个参数，resolve 和 reject，分别为两个函数，其中
+   resolve 的参数为 executor 参数 resolve 的参数
+   reject 的参数为 executor 参数 reject 的参数
