@@ -9,7 +9,7 @@ Promise 有三种状态：
     2.  fulfilled 成功状态
     3.  rejected 失败状态
 
-pending 状态经过 Promise 对象的触发，变成 fulfilled 或者是 rejected 状态，然后被 Promise 的 then 方法的参数函数进行处理。 具体细则可见 MDN[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise]
+pending 状态经过 Promise 对象的触发，变成 fulfilled 或者是 rejected 状态，然后被 Promise 的 then 方法的参数函数进行处理。 具体细则可见 [MDN->Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
 ## 用法
 
@@ -96,5 +96,5 @@ Prom.prototype.then = (resolve, reject) => {}
 
 2. then 方法返回一个 Promise
 3. then 方法有两个参数，resolve 和 reject，分别为两个函数，其中
-   resolve 的参数为 executor 参数 resolve 的参数
+   resolve 的参数为 executor 参数 resolve 的参数，
    reject 的参数为 executor 参数 reject 的参数
