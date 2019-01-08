@@ -1,4 +1,0 @@
-- [ ] es
-- [ ] react
-- [ ] webpack
-- [ ] node
