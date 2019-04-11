@@ -1,7 +1,3 @@
 # woshixixi.github.io
 
-> test commit
-
-```
- console.log("hello world!")
-```
+1. [Cross Domain](https://github.com/woshixixi/woshixixi.github.io/blob/master/cross-domain/README.md)
