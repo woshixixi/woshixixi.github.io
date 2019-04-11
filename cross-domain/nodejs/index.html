@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>nodejs-demo</title>
+  </head>
+  <body>
+    <p>nodejs demo</p>
+    <button onclick="request()">Request</button>
+    <script>
+      const url = 'http://localhost:9999'
+      function request() {
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-type', 'text/plain')
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if ((xhr.status == 200 && xhr.status < 300) || xhr.status === 304) {
+              console.log(xhr.response)
+            }
+          }
+        }
+        xhr.send()
+      }
+    </script>
+  </body>
+</html>

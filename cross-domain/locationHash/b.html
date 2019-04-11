@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>location.hash-demo-b</title>
+  </head>
+  <body>
+    <p>b html</p>
+    <script>
+      console.log('b html:', location.hash)
+      const bHsh = location.hash
+      let iframe = document.createElement('iframe')
+      iframe.src = `http://localhost:7777/a2.html#${bHsh}`
+      document.body.appendChild(iframe)
+    </script>
+  </body>
+</html>

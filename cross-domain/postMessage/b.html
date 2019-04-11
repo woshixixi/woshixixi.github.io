@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>postMessage-demo-b</title>
+  </head>
+  <body>
+    <p>b html</p>
+    <button onclick="sendMessage()">send to A</button>
+    <script>
+      var aWindow
+      var aWindowOrigin
+
+      function sendMessage() {
+        aWindow.postMessage('hi a !', aWindowOrigin)
+      }
+
+      function receiveMessage(event) {
+        var origin = event.origin
+
+        if (origin !== 'http://localhost:7777') return
+        console.log('b receive message:', event.data)
+        aWindow = event.source
+        aWindowOrigin = event.origin
+      }
+
+      window.addEventListener('message', receiveMessage, false)
+    </script>
+  </body>
+</html>

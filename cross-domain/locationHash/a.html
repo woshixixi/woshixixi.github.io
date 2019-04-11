@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>location.hash-demo-a</title>
+  </head>
+  <body>
+    <p>a html</p>
+    <iframe
+      style="border:1px solid"
+      src="http://localhost:7778/b.html#byskj"
+      frameborder="0"
+      id="iframe"
+    ></iframe>
+
+    <script>
+      window.onhashchange = function() {
+        console.log('a hash has changed', location.hash)
+      }
+    </script>
+  </body>
+</html>

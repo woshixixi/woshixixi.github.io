@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CORS-demo</title>
+  </head>
+  <body>
+    <p>hello world</p>
+    <button onclick="requestSimple()">simple</button>
+    <button onclick="requestWithPreflighte()">with preflighted</button>
+    <script>
+      const url = 'http://localhost:8888'
+
+      function requestSimple() {
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-type', 'text/plain')
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if ((xhr.status == 200 && xhr.status < 300) || xhr.status === 304) {
+              console.log(xhr.response)
+            }
+          }
+        }
+        xhr.send()
+      }
+
+      function requestWithPreflighte() {
+        let xhr = new XMLHttpRequest()
+        document.cookie = 'yskj2407'
+        xhr.withCredentials = true //with credentials cookie
+        xhr.open('PUT', 'http://localhost:8888', true)
+        xhr.setRequestHeader('name', 'yskj')
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+              console.log(xhr.response)
+              console.log(xhr.getResponseHeader('company'))
+            }
+          }
+        }
+        xhr.send()
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSONP-demo</title>
+  </head>
+  <body>
+    <p>hello world</p>
+    <button onclick="createScript()">Create</button>
+    <script>
+      function createScript() {
+        console.log('createScript')
+        let scriptNode = document.createElement('script')
+        scriptNode.src = 'http://localhost:8888?callback=jsonpCallback'
+        document.body.appendChild(scriptNode)
+      }
+
+      function jsonpCallback(data) {
+        alert('获取数据成功，2s后改变数据！')
+        let p = document.getElementsByTagName('p')[0]
+        setTimeout(function() {
+          p.innerHTML = data
+        }, 2000)
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>postMessage-demo-a</title>
+  </head>
+  <body>
+    <p>a html</p>
+    <button onclick="openB()">openB</button>
+    <button onclick="sendMessage()">send Message to B</button>
+    <button onclick="sendIframe()">send Message to Iframe B</button>
+    <iframe
+      style="border:1px solid"
+      src="http://localhost:7778/b.html"
+      frameborder="0"
+      onload="bFrameLoad()"
+      id="iframe"
+    ></iframe>
+
+    <script>
+      const bUrl = 'http://localhost:7778/b.html'
+      const bOrigin = 'http://localhost:7778'
+      var bWindow
+      var bFrame
+
+      function openB() {
+        bWindow = window.open(bUrl)
+      }
+
+      function sendMessage() {
+        bWindow.postMessage('hello b !', bUrl)
+      }
+
+      function receiveMessage(event) {
+        if (event.origin !== bOrigin) return
+        console.log('a receive Message: ', event.data)
+      }
+
+      window.addEventListener('message', receiveMessage, false)
+
+      function bFrameLoad() {
+        bFrame = document.getElementById('iframe')
+      }
+
+      function sendIframe() {
+        bFrame.contentWindow.postMessage('hello b frame', bOrigin)
+      }
+    </script>
+  </body>
+</html>

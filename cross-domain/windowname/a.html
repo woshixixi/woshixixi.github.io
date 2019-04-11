@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>window.name-demo-a</title>
+  </head>
+  <body>
+    <p>a html</p>
+
+    <iframe
+      style="border:1px solid"
+      src="http://localhost:7778/b.html"
+      frameborder="0"
+      onload="bFrameLoad()"
+      id="iframe"
+    ></iframe>
+
+    <script>
+      let first = true
+      function bFrameLoad() {
+        bFrame = document.getElementById("iframe")
+
+        if (first) {
+          setTimeout(() => {
+            // console.log("first window.name:", bFrame.contentWindow.name)
+            bFrame.src = "http://localhost:7777/c.html"
+            first = false
+          }, 1000)
+        } else {
+          console.log("second window.name:", bFrame.contentWindow.name)
+        }
+      }
+    </script>
+  </body>
+</html>
