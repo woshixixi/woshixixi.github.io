@@ -1,3 +1,15 @@
+/**
+ * TODO: then return new PromiseA()
+ *
+ * reference:
+ * [Promise/A+](https://promisesaplus.com/)
+ *
+ * test:
+ * `npm i -g promises-aplus-tests`
+ * `promises-aplus-tests Promise.js`
+ *
+ */
+
 class PromiseA {
   constructor(executor) {
     this.state = 'pending'
