@@ -4,11 +4,11 @@
 
 1. 整个页面从电池栏以上都为 h5 页面， UI 图如下：
 
-![顶部UI图](https://github.com/woshixixi/woshixixi.github.io/blob/master/src/work-summary/resource/ui-header.png =300x)
+<img src="https://github.com/woshixixi/woshixixi.github.io/blob/master/src/work-summary/resource/ui-header.png" width="300" alt="顶部UI图"/>
 
 2. 页面过长，上滑后，顶部的“搜索”头部需要固定:
 
-![上滑后UI页面](https://github.com/woshixixi/woshixixi.github.io/blob/master/src/work-summary/resource/scroll-down-header.png =300x)
+<img src="https://github.com/woshixixi/woshixixi.github.io/blob/master/src/work-summary/resource/scroll-down-header.png" width="300" alt="上滑后UI页面"/>
 
 3. 页面通过 webview 嵌入，整个页面下拉调用原生刷新 loading 刷新
 
