@@ -5,3 +5,5 @@
 2. [Promise.then](./src/es6/Promise.js)
 
 3. [redux](./src/redux/use-redux.js)
+
+4. [work-summary](./src/work-summary/README.md)
