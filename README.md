@@ -6,4 +6,6 @@
 
 3. [redux](./src/redux/use-redux.js)
 
-4. [npm](./src/npm/README.md)
+4. [work-summary](./src/work-summary/README.md)
+
+5. [npm](./src/npm/README.md)
