@@ -27,3 +27,81 @@
     > 当添加一个依赖包的时候, 使用`--production`在命令行中是不起作用的
 
 -   `npm install <folder>`
+
+    在当前项目中以软链接的形式安装目录中的包，先安装该包的所有依赖，再链接。如果`<folser>`在根目录下，其依赖会跟其他依赖一样放在最顶层的 node_modules 中
+
+-   `npm install <tarball file>`
+
+    安装文件目录中的包
+
+    > 如果只是想把本地的目录 link 到你的 npm 根目录中，可以使用`npm link`命令。
+
+    tar 包要求：
+
+        - 文件名必须以.tar .tar.gz .tgz 作为系统文件
+        - 包的内容要存放在 tar包的 子文件中，一般为 package/ 。安装的时候会剥离一层文件层（和 命令 `tar x --strip-components=1` 等效）。
+        - 包必须包含一个 package.json文件，且package.json 必须包含name 和 version属性
+
+    例子： `npm install ./package.tgz`
+
+-   `npm install <tarball url>`
+
+    下载一个 tarball ，并安装这个 tarball，为了和其他区分出来，url 必须以`http://` 或 `https://` 开头
+
+-   `npm install [<@scope>/]<name>`
+
+-   `npm install [<@scope>/]<name><tag>`
+
+-   `npm install [<@scope>/]<name>@<version>`
+
+-   `npm install [<@scope>/]<name>@<version range>`
+
+-   `npm install <git remote url>`
+
+-   `npm install <githubname>/<githubrepo>[#<commit-ish>]`
+
+-   `npm install github:<githubname>/<githubrepo>[#<commit-ish>]`
+
+-   `npm install gist[<githubname>/]<gistID>[#<commit-ish>|#semver:<semver>]`
+-   ...
+
+-   `npm install xxx --force`
+
+    -   `--force` 强制 npm 从远程拉取包即使本地已经有了该包
+
+-   算法
+    1. 从磁盘中加载已有的 node_modules 树
+    2. 复制树
+    3. 获取 package.json 和 分类后的数据，并添加到复制树中
+    4. 遍历复制树，并添加任何缺少的依赖
+        - 依赖将尽量被添加到复制树的顶部，避免破坏其他模块
+    5. 对比初始树 和 复制树，列举从初始树 到 复制树 需要做的所有的动作
+    6. 执行所有的动作，标识第一种动作是 install update remove 和 move
+
+
+    以 `package{dep}`为格式的这种数据:A{B,C},B{C},C{D},算法生成树：
+    ```
+        A
+        +--B
+        +--C
+        +--D
+    ```
+    如上是因为 A 已经使C被安装在跟高的级别了，满足了B到C的依赖，D仍安装在顶层，是因为没有冲突
+
+    对于:A{B,C},B{C,D@1},C{D@2}
+    ```
+        A
+        +--B
+        +--C
+            `--D@2
+        +--D@1
+    ```
+    因为B的D@1已经被安装在顶层了，C就私有安装D@2
+
+    因此，如果两个依赖被安装的顺序不同，会导致生成不同的树
+
+    - npm算法的局限性
+        1. npm 拒绝安装和当前包有相同名字的任何包，可以通过`--force`命令将其覆盖，但是多数情况下，可以更改本地软件包名称来解决
+
+        2. 对于 A->B->A'->B'->A->....这种无解
+        3. 为了避免这种问题，npm 拒绝安装在任何package folder 的祖先树中已经存在的 name@version ， 更正确单复杂的解决方案是 将现在已经存在的版本链接到新位置。如果影响到实际的用例，再对其进行具体分析。
