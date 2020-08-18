@@ -2,6 +2,10 @@
 
     [doc](https://docs.npmjs.com/cli/install)
 
-2. package.json
+2. [npm folders](npm-folders-zh.md)
 
-3. npm 包 实例
+    [doc](https://docs.npmjs.com/files/folders)
+
+3. package.json
+
+4. npm 包 实例
