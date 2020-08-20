@@ -126,7 +126,12 @@
 15. repository
 16. scripts
 
+    [detail](./npm-scripts-zh.md)
+
 17. config
+
+    [detail](./npm-config-zh.md)
+
 18. dependencies
 
     不要把测试工具和编译器写在 dependencies 中
@@ -153,10 +158,43 @@
     `prepare` 命令会在 发布前执行，所以用户可以使用功能而不自己安装依赖, 在 dev mode 的 npm install， 也会执行该脚本，所以可以轻松的测试。
 
 20. peerDependencies
+
+    一般用于写插件或者工具，你写的东西不一定需要使用到这个包，但使用你的包的包一定会要用到这个包，就放在 peerDependencies 中
+
+    但是如果你的 peerDependencies 和 别人的包的版本不通，很容易就陷入循环。因此尽可能的将版本扩大到最大的兼容
+
 21. bundledDependencies
+
+    该选项接收一个依赖的数组，不包含依赖包的版本。在打包成 tar 包的时候，会把这个选项中的依赖包一起打进去。
+
 22. optionalDependencies
+
+    这个依赖可以被使用，但如果没有正确安装或者安装失败还需要程序继续运行就可以把依赖安装在这个选项中。
+
+    可以添加异常处理
+
+    ```js
+    try {
+        var foo = require('foo');
+    } catch (e) {
+        foo = null;
+    }
+
+    if (foo) {
+        foo.doFooThings();
+    }
+    ```
+
+    optionalDependencies 会 覆盖 dependencies 中的同名依赖，因此一个依赖包最好只放在一个字段里面。
+
 23. engines
+
+    可以规定你的 node 的版本范围/npm 版本范围，不要写死，不写就是全部适用
+
 24. enginStrict
+
+    npm 3.0.0 版本删除了
+
 25. os
 26. cpu
 27. preferGlobal
